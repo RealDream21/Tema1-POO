@@ -14,6 +14,7 @@ public:
 };
 
 class Figura{
+    public:
     char* denumire;
     int nrPuncte;
     Punct2D* v;
@@ -23,6 +24,7 @@ public:
     Figura(const char*, const int, const Punct2D*);
     friend istream& operator>>(istream&, Figura&);
     Figura& operator=(const Figura&);
+    Figura& operator +=(const Punct2D&);
     //friend ostream& operator<<(ostream&, const Figura&);
 };
 

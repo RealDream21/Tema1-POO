@@ -38,6 +38,7 @@ Figura::Figura(){
 }
 
 Figura::Figura(const char *nume, const int nr){
+    v = NULL;
     denumire = new char[strlen(nume)];
     int len = strlen(nume);
     for(int i = 0; i <= len; i++)
@@ -73,11 +74,33 @@ Figura& Figura::operator=(const Figura& other){
     if (strlen(denumire) != 0) delete [] denumire; //eroare cand sterg la un element gol ex: f[3] = f3;
     denumire = new char[len + 1];
     strncpy(denumire, other.denumire, len);
-    v = NULL; //??? nu merge delete [] v, de editat dupa daca rezolv problema cu elementul neinitializat;
+    if (v != NULL) delete [] v;
     v = new Punct2D[other.nrPuncte + 1];
     for(int i = 0; i < nrPuncte; i++)
         v[i] = other.v[i];
     return *this;
 }
+
+Figura& Figura::operator+=(const Punct2D& punct){
+    if(v == NULL){
+        v = new Punct2D[1];
+        v[0] = punct;
+        return *this;
+    }
+    Punct2D *aux;
+    nrPuncte++;
+    aux = new Punct2D[nrPuncte];
+    for(int i = 0; i < nrPuncte - 1; i++)
+        aux[i] = v[i];
+    aux[nrPuncte - 1] = punct;
+    delete [] v;
+    v = aux;
+    return *this;
+}
+
+
+
+
+
 
 

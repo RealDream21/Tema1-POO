@@ -11,9 +11,7 @@ int main()
     Figura f2("Segment", 2, p4);
     Figura f1("triunghi dreptunghic", 3, p3);
     Figura f3("salutare", 3, p3);
-    Figura f4[2];
-
-
+    Figura f4[1];
 
 
     return 0;
