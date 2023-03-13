@@ -52,7 +52,7 @@ Figura::Figura(const char *nume, const int nr){
 }
 
 
-Figura::Figura(const char *nume, const int nr, const Punct2D* a){
+Figura::Figura(const char *nume, const int nr, const Punct2D*const a){
     denumire = new char[strlen(nume)];
     int len = strlen(nume);
     for(int i = 0; i <= len; i ++)
@@ -116,6 +116,17 @@ bool Figura::operator!=(const Figura& other)const{
     return false;
 }
 
+Geometrie::Geometrie(){
+    fig = NULL;
+    nrFiguri = 0;
+}
+
+Geometrie::Geometrie(const int nr, const Figura* const vfig){
+    nrFiguri = nr;
+    fig = new Figura[nrFiguri + 1];
+    for(int i = 0; i < nrFiguri; i++)
+        fig[i] = vfig[i];
+}
 
 
 

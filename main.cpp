@@ -9,11 +9,12 @@ int main()
     p3[1] = p1;
     p3[2] = p1;
     Figura f1("Segment", 3, p3);
-    Figura f2("Segment", 3, p3);
-    Figura f3;
-    f3 = f1;
-
-
-
+    Figura f2("segfg", 3, p3);
+    Figura f4("salut", 3, p3);
+    Figura f3[3];
+    f3[0] = f1;
+    f3[1] = f2;
+    f3[2] = f4;
+    Geometrie(3, f3);
     return 0;
 }

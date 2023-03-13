@@ -21,7 +21,7 @@ class Figura{
 public:
     Figura();
     Figura(const char*, const int);
-    Figura(const char*, const int, const Punct2D*);
+    Figura(const char*, const int, const Punct2D*const);
     friend istream& operator>>(istream&, Figura&);
     Figura& operator=(const Figura&);
     Figura& operator +=(const Punct2D&);
@@ -32,6 +32,6 @@ class Geometrie{
     int nrFiguri;
     Figura* fig;
 public:
-
-
+    Geometrie();
+    Geometrie(const int,const Figura* const vfig);
 };
