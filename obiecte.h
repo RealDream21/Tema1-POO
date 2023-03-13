@@ -11,10 +11,10 @@ public:
     Punct2D& operator =(const Punct2D&);
     friend istream& operator>>(istream&, Punct2D&);
     friend ostream& operator<<(ostream&, const Punct2D&);
+    bool operator !=(const Punct2D&)const;
 };
 
 class Figura{
-    public:
     char* denumire;
     int nrPuncte;
     Punct2D* v;
@@ -25,7 +25,7 @@ public:
     friend istream& operator>>(istream&, Figura&);
     Figura& operator=(const Figura&);
     Figura& operator +=(const Punct2D&);
-    //friend ostream& operator<<(ostream&, const Figura&);
+    bool operator!=(const Figura&)const;
 };
 
 class Geometrie{

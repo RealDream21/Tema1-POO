@@ -31,8 +31,13 @@ Punct2D& Punct2D::operator=(const Punct2D& other){
     return (*this);
 }
 
+bool Punct2D::operator!=(const Punct2D& other)const{
+    if(x == other.x && y == other.y) return false;
+    else return true;
+}
+
 Figura::Figura(){
-    denumire = "";
+    denumire = NULL;
     int nrPuncte = 0;
     v = NULL;
 }
@@ -71,11 +76,11 @@ istream& operator>>(istream& is, Figura& fig){
 Figura& Figura::operator=(const Figura& other){
     int nrPuncte = other.nrPuncte;
     int len = strlen(other.denumire) + 1;
-    if (strlen(denumire) != 0) delete [] denumire; //eroare cand sterg la un element gol ex: f[3] = f3;
+    if (denumire != NULL) delete [] denumire; //eroare cand sterg la un element gol ex: f[3] = f3;
     denumire = new char[len + 1];
     strncpy(denumire, other.denumire, len);
     if (v != NULL) delete [] v;
-    v = new Punct2D[other.nrPuncte + 1];
+    v = new Punct2D[nrPuncte + 1];
     for(int i = 0; i < nrPuncte; i++)
         v[i] = other.v[i];
     return *this;
@@ -97,6 +102,20 @@ Figura& Figura::operator+=(const Punct2D& punct){
     v = aux;
     return *this;
 }
+
+bool Figura::operator!=(const Figura& other)const{
+    if (strcmp(denumire, denumire)) return true;
+    else if (nrPuncte != other.nrPuncte) return true;
+    else{
+        for(int i = 0; i < nrPuncte; i++)
+            if(v[i] != other.v[i]) {
+                cout << "DA";
+                return true;
+            }
+    }
+    return false;
+}
+
 
 
 
