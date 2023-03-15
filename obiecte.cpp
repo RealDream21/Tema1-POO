@@ -74,7 +74,7 @@ istream& operator>>(istream& is, Figura& fig){
 }
 
 Figura& Figura::operator=(const Figura& other){
-    int nrPuncte = other.nrPuncte;
+    nrPuncte = other.nrPuncte;
     int len = strlen(other.denumire) + 1;
     if (denumire != NULL) delete [] denumire; //eroare cand sterg la un element gol ex: f[3] = f3;
     denumire = new char[len + 1];
@@ -104,16 +104,18 @@ Figura& Figura::operator+=(const Punct2D& punct){
 }
 
 bool Figura::operator!=(const Figura& other)const{
-    if (strcmp(denumire, denumire)) return true;
-    else if (nrPuncte != other.nrPuncte) return true;
+    if (strcmp(denumire, other.denumire)) return true;
+    else if (nrPuncte != other.nrPuncte)  return true;
     else{
         for(int i = 0; i < nrPuncte; i++)
-            if(v[i] != other.v[i]) {
-                cout << "DA";
+            if(v[i] != other.v[i])
                 return true;
-            }
     }
     return false;
+}
+
+char* Figura::getDenumire()const{
+    return denumire;
 }
 
 Geometrie::Geometrie(){
@@ -126,6 +128,39 @@ Geometrie::Geometrie(const int nr, const Figura* const vfig){
     fig = new Figura[nrFiguri + 1];
     for(int i = 0; i < nrFiguri; i++)
         fig[i] = vfig[i];
+}
+
+istream& operator>>(istream& is, Geometrie& geom){
+    cout << "dati numarul de figuri: ";
+    is >> geom.nrFiguri;
+    geom.fig = new Figura[geom.nrFiguri + 1];
+    for(int i = 0; i < geom.nrFiguri; i++){
+        cout << "dati parametrii pentru figura " << i << "(Nume|nrPuncte|coordonatePuncte) ";
+        is >> geom.fig[i];
+    }
+    return is;
+}
+
+Geometrie& Geometrie::operator-=(const int nrFigSterse){
+    if(nrFigSterse - nrFigSterse - 1 < 0) {
+            cout << "nu se pot sterge";
+            return *this;
+    }
+    nrFiguri = nrFiguri - nrFigSterse - 1;
+    Figura* aux = new Figura[nrFiguri];
+    for(int i = 0; i <= nrFiguri; i++)
+        aux[i] = fig[i];
+    delete [] fig;
+    fig = aux;
+    return *this;
+}
+
+ostream& operator<<(ostream& os, const Geometrie& geom){
+    os << "Obiectul are: " << geom.nrFiguri << "figuri: ";
+    for(int i = 0; i < geom.nrFiguri; i++){
+        os << geom.fig[i].getDenumire() << "\n";
+    }
+    return os;
 }
 
 

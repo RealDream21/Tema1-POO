@@ -22,10 +22,11 @@ public:
     Figura();
     Figura(const char*, const int);
     Figura(const char*, const int, const Punct2D*const);
-    friend istream& operator>>(istream&, Figura&);
+    friend istream& operator>>(istream&, Figura&); ///const istream?
     Figura& operator=(const Figura&);
     Figura& operator +=(const Punct2D&);
     bool operator!=(const Figura&)const;
+    char* getDenumire()const;
 };
 
 class Geometrie{
@@ -34,4 +35,7 @@ class Geometrie{
 public:
     Geometrie();
     Geometrie(const int,const Figura* const vfig);
+    friend istream& operator>>(istream&, Geometrie&); ///const istream?
+    friend ostream& operator<<(ostream&, const Geometrie&);
+    Geometrie& operator -=(const int);
 };
