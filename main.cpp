@@ -2,24 +2,22 @@
 
 int main()
 {
-    Punct2D p1(1, -1), p2(2), p3[3], p4[3], p5[4], p6[1];
-    //for(int x = 0; x < 4; x++)
-    //    cin >> p3[x];
-    p3[0] = p1;
-    p3[1] = p1;
-    p3[2] = p1;
-    Figura f1("Segment", 3, p3);
-    Figura f2("Segment", 3, p4);
-    Figura f4("salut", 3, p3);
-    Figura f3[3];
-    f3[0] = f1;
-    f3[1] = f2;
-    f3[2] = f4;
-    Geometrie g1, g3(2, f3);
-    cin >> g1;//adica nr figuri si figurile
-    cout << g1.nrFiguri;
-    g1 -= 2;
-    cout << g1;
-
+    Punct2D p1(1, -1), p2(2), p3[4], p4[2];
+    for(int x = 0; x < 4; x++)
+        cin >> p3[x];
+    cout << p3[3];
+    p4[0] = p1;
+    p4[1] = p2;
+    Figura f1("triunghi dreptunghic", 3), f2("Segment", 2, p4), f3[2];
+    cin >> f3[0];
+    f3[1] = f3[0];
+    f3[1] += p1;
+    if(f1 != f3[1])
+        cout << "figura " << f1 <<" diferita de " << f3[1] << endl;
+    Geometrie g1, g2(2, f3);
+    Geometrie g4 = g2;
+    cin >> g1;
+    g4 -= 1;
+    cout << g4 << g2;
     return 0;
 }

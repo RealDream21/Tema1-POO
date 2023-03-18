@@ -15,6 +15,7 @@ public:
 };
 
 class Figura{
+    public:
     char* denumire;
     int nrPuncte;
     Punct2D* v;
@@ -22,7 +23,8 @@ public:
     Figura();
     Figura(const char*, const int);
     Figura(const char*, const int, const Punct2D*const);
-    friend istream& operator>>(istream&, Figura&); ///const istream?
+    friend istream& operator>>(istream&, Figura&);
+    friend ostream& operator<<(ostream&, const Figura&);
     Figura& operator=(const Figura&);
     Figura& operator +=(const Punct2D&);
     bool operator!=(const Figura&)const;
@@ -30,12 +32,15 @@ public:
 };
 
 class Geometrie{
+    public:
     int nrFiguri;
     Figura* fig;
 public:
     Geometrie();
+    Geometrie(const Geometrie&);
     Geometrie(const int,const Figura* const vfig);
-    friend istream& operator>>(istream&, Geometrie&); ///const istream?
+    friend istream& operator>>(istream&, Geometrie&);
     friend ostream& operator<<(ostream&, const Geometrie&);
+    Geometrie& operator=(const Geometrie&);
     Geometrie& operator -=(const int);
 };
