@@ -64,13 +64,23 @@ Figura::Figura(const char *nume, const int nr, const Punct2D*const a){
 }
 
 istream& operator>>(istream& is, Figura& fig){
-    fig.denumire = new char[100];
+    delete [] fig.denumire;
+    fig.denumire = new char[255];
+    cout << "Dati denumirea figurii: ";
     is >> fig.denumire;
+    //is.get();
+    //is.getline(fig.denumire, 255);
+    cout << "Dati numarul de puncte: ";
     is >> fig.nrPuncte;
     fig.v = new Punct2D[fig.nrPuncte + 1];
     for(int i = 0; i < fig.nrPuncte; i++)
         is >> fig.v[i];
     return is;
+}
+
+ostream& operator<<(ostream& os, const Figura& fig){
+    os << fig.denumire;
+    return os;
 }
 
 Figura& Figura::operator=(const Figura& other){
@@ -100,6 +110,16 @@ Figura& Figura::operator+=(const Punct2D& punct){
     aux[nrPuncte - 1] = punct;
     delete [] v;
     v = aux;
+
+    delete[] denumire;
+    denumire = new char[256];
+    char * auxchr;
+    auxchr = new char[256];
+    cout << "Dati noua denumire: ";
+    cin.get();
+    cin.getline(auxchr, 256);
+    strcpy(denumire, auxchr);
+    delete[] auxchr;
     return *this;
 }
 
@@ -123,11 +143,17 @@ Geometrie::Geometrie(){
     nrFiguri = 0;
 }
 
+Geometrie::Geometrie(const Geometrie& other){
+    *this = other;
+}
+
+
 Geometrie::Geometrie(const int nr, const Figura* const vfig){
     nrFiguri = nr;
     fig = new Figura[nrFiguri + 1];
     for(int i = 0; i < nrFiguri; i++)
         fig[i] = vfig[i];
+
 }
 
 istream& operator>>(istream& is, Geometrie& geom){
@@ -141,14 +167,26 @@ istream& operator>>(istream& is, Geometrie& geom){
     return is;
 }
 
+Geometrie& Geometrie::operator=(const Geometrie& other){
+    if(fig != NULL)
+        delete[] fig;
+    nrFiguri = other.nrFiguri;
+    fig = new Figura[other.nrFiguri];
+    for(int i = 0; i < nrFiguri; i++){
+        fig[i] = other.fig[i];
+        cout << other.fig[i] << "<--" << endl;
+    }
+    return *this;
+}
+
 Geometrie& Geometrie::operator-=(const int nrFigSterse){
-    if(nrFigSterse - nrFigSterse - 1 < 0) {
-            cout << "nu se pot sterge";
+    if(nrFiguri - nrFigSterse < 0) {
+            cout << "nu se pot sterge figurile" << endl;
             return *this;
     }
-    nrFiguri = nrFiguri - nrFigSterse - 1;
+    nrFiguri = nrFiguri - nrFigSterse;
     Figura* aux = new Figura[nrFiguri];
-    for(int i = 0; i <= nrFiguri; i++)
+    for(int i = 0; i < nrFiguri; i++)
         aux[i] = fig[i];
     delete [] fig;
     fig = aux;
@@ -156,10 +194,11 @@ Geometrie& Geometrie::operator-=(const int nrFigSterse){
 }
 
 ostream& operator<<(ostream& os, const Geometrie& geom){
-    os << "Obiectul are: " << geom.nrFiguri << "figuri: ";
+    os << "Geometria are: " << geom.nrFiguri << " figuri: " << endl;
     for(int i = 0; i < geom.nrFiguri; i++){
         os << geom.fig[i].getDenumire() << "\n";
     }
+    os << endl;
     return os;
 }
 
