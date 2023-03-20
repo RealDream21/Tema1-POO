@@ -8,7 +8,7 @@ int main()
     cout << p3[3];
     p4[0] = p1;
     p4[1] = p2;
-    Figura f1("triunghi dreptunghic", 3), f2("Segment", 2, p4), f3[2];
+    Figura f1("triunghi dreptunghic", 3), f2("Segment", 2, p4), f3[4];
     cin >> f3[0];
     f3[1] = f3[0];
     f3[1] += p1;

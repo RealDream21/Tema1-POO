@@ -43,12 +43,12 @@ Figura::Figura(){
 }
 
 Figura::Figura(const char *nume, const int nr){
-    v = NULL;
+    nrPuncte = nr;
+    v = new Punct2D[nrPuncte + 1];
     denumire = new char[strlen(nume)];
     int len = strlen(nume);
     for(int i = 0; i <= len; i++)
         denumire[i] = nume[i];
-    nrPuncte = nr;
 }
 
 
@@ -144,7 +144,11 @@ Geometrie::Geometrie(){
 }
 
 Geometrie::Geometrie(const Geometrie& other){
-    *this = other;
+    nrFiguri = other.nrFiguri;
+    fig = new Figura[nrFiguri];
+    for(int i = 0; i < nrFiguri; i++){
+        fig[i] = other.fig[i];
+    }
 }
 
 
@@ -174,7 +178,6 @@ Geometrie& Geometrie::operator=(const Geometrie& other){
     fig = new Figura[other.nrFiguri];
     for(int i = 0; i < nrFiguri; i++){
         fig[i] = other.fig[i];
-        cout << other.fig[i] << "<--" << endl;
     }
     return *this;
 }
@@ -201,10 +204,3 @@ ostream& operator<<(ostream& os, const Geometrie& geom){
     os << endl;
     return os;
 }
-
-
-
-
-
-
-
