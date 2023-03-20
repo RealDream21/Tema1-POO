@@ -14,8 +14,7 @@ public:
     bool operator !=(const Punct2D&)const;
 };
 
-class Figura{
-    public:
+class Figura{
     char* denumire;
     int nrPuncte;
     Punct2D* v;
@@ -31,8 +30,7 @@ public:
     char* getDenumire()const;
 };
 
-class Geometrie{
-    public:
+class Geometrie{
     int nrFiguri;
     Figura* fig;
 public:
